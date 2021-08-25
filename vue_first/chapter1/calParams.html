@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src=“https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js”></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+</head>
+<body>
+    <div id="vue">
+        <p>{{current()}}</p>
+
+    </div>
+</body>
+<script>
+    var vm=new Vue({
+        el:"#vue",
+        data:{
+            message:"hello,vue"
+        },
+        methods:{
+            current:function(){
+                return Date.now();
+            }
+        },
+        computed:{
+            current1:function(){
+                return Date.now();
+            }
+        }
+    });
+</script>
+</html>

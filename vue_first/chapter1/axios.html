@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src=“https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js”></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+</head>
+<body>
+    <div id="vue">
+        <div>{{info.name}}</div>
+        <div>{{info.address}}</div>
+        <a v-bind:href="info.url">click</a>
+
+    </div>
+</body>
+
+<script>
+    var vm=new Vue({
+        el:"#vue",
+        //* data 是全局的，在大项目中容易污染数据 * 将data封装成一个函数，我们在实例化组件的时候只是调用了这个函数生成的数据副本，避免了数据污染
+        //这里的data(){}指的是方法需要用return，如果使用data:{}就不需要return
+        data(){
+          return {
+              info:{
+
+              }
+          }
+        },
+        mounted(){//钩子函数
+            axios.get('data.json').then(response=>(this.info=response.data));
+        }
+    });
+</script>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.min.js"></script>
+</head>
+<body>
+    <div id="vue">
+        <todo>
+            <todo_title_component slot="todo_title_component" :ctitle="title"></todo_title_component>
+            <todo_content_component slot="todo_items_component" v-for="(item,index) in content" :index="index" @remove="removeItems(index)" :citems="item"></todo_content_component>
+        </todo>
+
+
+        
+    </div>
+
+</body>
+<script>
+    Vue.component("todo",{
+        template:
+            '<div>\
+                <slot name="todo_title_component"></slot>\
+                <ul>\
+                    <slot name="todo_items_component"></slot>\
+                </ul>\
+            </div>',
+    });
+    Vue.component('todo_title_component',{
+        props:['ctitle'],
+        template:'<div>{{ctitle}}</div>'
+    });
+    Vue.component('todo_content_component',{
+        props:['citems','index'],
+        template:'<li>{{index}}:{{citems}}<button @click="remove">delete</button></li>',
+        methods:{
+            remove:function (index) {
+                this.$emit('remove',index);
+            }
+        }
+    });
+    var vm=new Vue({
+        el:"#vue",
+        data:{
+            message:"hello,vue",
+            title:"编程书籍",
+            content:['JAVA','LINUX','PYTHON']
+        },
+        methods:{
+            removeItems:function (index) {
+                console.log("删除了"+this.content[index]);
+                this.content.splice(index,1)
+            }
+        }
+    });
+</script>
+</html>
